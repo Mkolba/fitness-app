@@ -2,17 +2,22 @@ import React from "react";
 import {PanelHeader, PanelHeaderBack, PanelHeaderProps} from "@vkontakte/vkui";
 import {useFirstPageCheck, useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 
-import './CustomPanelHeader.scss';
+import './style.scss';
 
-export const CustomPanelHeader: React.FC<PanelHeaderProps> = ({
+interface CommonPanelHeaderProps extends PanelHeaderProps {
+  root?: boolean
+}
+
+export const CommonPanelHeader: React.FC<CommonPanelHeaderProps> = ({
   children,
+  root=false,
   ...restProps
 }) => {
   const isFirstPage = useFirstPageCheck();
   const router = useRouteNavigator();
 
   return (
-    <PanelHeader before={<PanelHeaderBack onClick={() => isFirstPage ? router.push('/') : router.back()} />} {...restProps}>
+    <PanelHeader before={!root && <PanelHeaderBack onClick={() => isFirstPage ? router.push('/') : router.back()} />} {...restProps}>
       {children}
     </PanelHeader>
   )

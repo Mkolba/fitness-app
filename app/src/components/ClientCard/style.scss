@@ -1,0 +1,27 @@
+.ClientCard {
+  overflow: hidden;
+
+  .ClientCard__Tappable {
+    display: flex;
+    padding: 12px;
+
+    .ClientCard__Content {
+      flex-grow: 1;
+
+      .ClientCard--header {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .ClientCard--description {
+        color: var(--vkui--color_text_secondary)
+      }
+    }
+
+    .ClientCard__Chevron {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
