@@ -1,0 +1,18 @@
+.LoginRoot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+
+  .LoginCard {
+    width: 100%;
+    max-width: 312px;
+    box-sizing: content-box;
+    padding: 12px;
+
+    .LoginCard--header {
+      text-align: center;
+      padding-bottom: 16px;
+    }
+  }
+}

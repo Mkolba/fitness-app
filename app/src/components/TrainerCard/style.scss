@@ -1,0 +1,27 @@
+.TrainerCard {
+  overflow: hidden;
+
+  .TrainerCard__Tappable {
+    display: flex;
+    padding: 12px;
+
+    .TrainerCard__Content {
+      flex-grow: 1;
+
+      .TrainerCard--header {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .TrainerCard--description {
+        color: var(--vkui--color_text_secondary)
+      }
+    }
+
+    .TrainerCard__Chevron {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

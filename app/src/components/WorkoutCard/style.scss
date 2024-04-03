@@ -1,0 +1,33 @@
+.WorkoutCard {
+  overflow: hidden;
+
+  .WorkoutCard__Tappable {
+    display: flex;
+    padding: 12px;
+
+    .WorkoutCard__Content {
+      flex-grow: 1;
+
+      .WorkoutCard--header {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .WorkoutCard--description {
+        color: var(--vkui--color_text_secondary)
+      }
+
+      .WorkoutCard--bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .WorkoutCard__Chevron {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
