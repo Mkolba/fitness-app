@@ -31,7 +31,7 @@ export const WorkoutCreatePanel: React.FC<ProtectedPanelProps> = ({
   const [showErrors, setShowErrors] = useState(false);
   const [client, setClient] = useState<IClient | undefined>(undefined)
   const [trainer, setTrainer] = useState<ITrainer | undefined>(undefined)
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<Date | undefined>(new Date());
   const [workoutType, setWorkoutType] = useState<IWorkoutType | undefined>(undefined);
   const router = useRouteNavigator();
 
