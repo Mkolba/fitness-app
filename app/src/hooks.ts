@@ -2,9 +2,9 @@ import {useEffect, useLayoutEffect, useState} from 'react';
 import {api} from "./api";
 import {accessTokenAtom} from "./store";
 import {unsafe_updater} from "@mntm/precoil";
+import {UserType} from "./types";
 
-type screenType = 'desktop' | 'mobile';
-type userType = 'admin' | 'trainer' | 'not_authorized';
+export type screenType = 'desktop' | 'mobile';
 
 export function useScreenType(): screenType {
   const [screenType, setScreenType] = useState<screenType>('desktop');
@@ -23,8 +23,8 @@ export function useScreenType(): screenType {
   return screenType;
 }
 
-export function useUserType(): userType {
-  const [userType, setUserType] = useState<userType>(updateType())
+export function useUserType(): UserType {
+  const [userType, setUserType] = useState<UserType>(updateType())
 
   function updateType() {
     const token = api.getToken();

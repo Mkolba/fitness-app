@@ -1,30 +1,33 @@
 import React, {useEffect} from "react";
-import {Panel, PanelProps, Placeholder} from "@vkontakte/vkui";
+import {Panel, PanelProps} from "@vkontakte/vkui";
 import {useUserType} from "../../hooks";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
+import {UserType} from "../../types";
 
 export interface ProtectedPanelProps extends PanelProps {
-  redirectTo: string
+  redirectTo: string,
+  allowedRoles?: UserType[]
 }
 
 export const ProtectedPanel: React.FC<ProtectedPanelProps> = ({
   children,
   redirectTo,
   nav,
+  allowedRoles=['admin', 'sudo'],
   ...restProps
 }) => {
   const userType = useUserType();
   const router = useRouteNavigator();
 
   useEffect(() => {
-    if (userType !== 'admin') {
+    if (!allowedRoles.includes(userType)) {
       setTimeout(() => router.replace(redirectTo), 600);
     }
   }, [userType])
 
   return (
     <Panel nav={nav} {...restProps}>
-      {userType === 'admin' ?
+      {allowedRoles.includes(userType) ?
         children
         :
         null

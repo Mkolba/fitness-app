@@ -2,6 +2,8 @@ export interface IUser {
   id: number
 }
 
+export type UserType = 'sudo' | 'admin' | 'trainer' | 'not_authorized';
+
 export type WorkoutStatusType = 'done' | 'cancelled' | 'pending'
 
 export interface ITrainer {
