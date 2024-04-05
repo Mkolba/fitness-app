@@ -54,7 +54,7 @@ export const App: React.FC = () => {
           <View nav={'trainers'} activePanel={activePanel}>
             <TrainersPanel nav={'trainers'} redirectTo={`/trainer/${userId}`}/>
             <TrainerPanel nav={'trainer'}/>
-            <TrainerCreatePanel nav={'trainerCreate'} redirectTo={`/trainer/${userId}`}/>
+            <TrainerCreatePanel nav={'trainerCreate'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
           </View>
           <View nav={'clients'} activePanel={activePanel}>
             <ClientsPanel nav={'clients'} redirectTo={`/trainer/${userId}`}/>

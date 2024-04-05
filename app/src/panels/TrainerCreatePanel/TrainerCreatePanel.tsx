@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import './style.scss'
-import {Button, FormItem, Group, Input, Panel, PanelProps, ScreenSpinner} from "@vkontakte/vkui";
+import {Button, FormItem, Group, Input, ScreenSpinner} from "@vkontakte/vkui";
 import {CommonPanelHeader, ProtectedPanel, ProtectedPanelProps} from "../../components";
 import {api} from "../../api";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 
 export const TrainerCreatePanel: React.FC<ProtectedPanelProps> = ({
   nav,
-  redirectTo
+  ...restProps
 }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -33,7 +33,7 @@ export const TrainerCreatePanel: React.FC<ProtectedPanelProps> = ({
   }
 
   return (
-    <ProtectedPanel nav={nav} redirectTo={redirectTo}>
+    <ProtectedPanel nav={nav} {...restProps}>
       <CommonPanelHeader>
         Новый тренер
       </CommonPanelHeader>

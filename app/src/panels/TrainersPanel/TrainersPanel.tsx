@@ -19,6 +19,7 @@ import {
 import {ITrainer} from "../../types";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 import {api} from "../../api";
+import {useUserType} from "../../hooks";
 
 
 export const TrainersPanel: React.FC<ProtectedPanelProps> = ({
@@ -28,7 +29,8 @@ export const TrainersPanel: React.FC<ProtectedPanelProps> = ({
   const [trainers, setTrainers] = useState<ITrainer[]>([]);
   const [search, setSearch] = useState('');
   const [isFetching, setIsFetching] = useState(true);
-  const router = useRouteNavigator()
+  const router = useRouteNavigator();
+  const userType = useUserType();
 
   useEffect(() => {
     setIsFetching(true);
@@ -52,9 +54,10 @@ export const TrainersPanel: React.FC<ProtectedPanelProps> = ({
   return (
     <ProtectedPanel nav={nav} redirectTo={redirectTo}>
       <CommonPanelHeader root before={
-        <PanelHeaderButton onClick={() => router.push('/trainer/new')}>
-          <Icon28AddSquareOutline color={'var(--vkui--color_background_accent_themed)'}/>
-        </PanelHeaderButton>
+        userType === 'sudo' &&
+          <PanelHeaderButton onClick={() => router.push('/trainer/new')}>
+            <Icon28AddSquareOutline color={'var(--vkui--color_background_accent_themed)'}/>
+          </PanelHeaderButton>
       }>
         Тренеры
       </CommonPanelHeader>
@@ -80,11 +83,12 @@ export const TrainersPanel: React.FC<ProtectedPanelProps> = ({
             </Placeholder>
           :
             <Placeholder header={'Ни-че-го'} icon={<Icon56RudeMessageOutline/>} action={
-              <Button size={'m'} before={<Icon24UserAddOutline/>} onClick={() => {
-                router.push('/trainer/new')
-              }}>
-                Создать тренера
-              </Button>
+              userType === 'sudo' &&
+                <Button size={'m'} before={<Icon24UserAddOutline/>} onClick={() => {
+                  router.push('/trainer/new')
+                }}>
+                  Создать тренера
+                </Button>
             }>
               Вы ещё не создавали тренеров
             </Placeholder>
