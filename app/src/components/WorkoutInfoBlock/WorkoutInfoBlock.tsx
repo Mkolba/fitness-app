@@ -4,23 +4,20 @@ import {
   Button,
   ButtonGroup, CustomSelect, CustomSelectOption,
   DateInput,
-  Div,
   FormItem,
   Group,
   Header,
-  Input,
   Link,
-  MiniInfoCell, ScreenSpinner, Select, Snackbar,
-  Textarea
+  MiniInfoCell, ScreenSpinner, Snackbar,
 } from "@vkontakte/vkui";
 import {
   Icon16CancelCircle, Icon16Clock,
   Icon16DoneCircle,
-  Icon20ArticleOutline,
+  Icon20BrushOutline,
   Icon20CalendarOutline, Icon20InfoCircleOutline,
   Icon20UserOutline, Icon28CheckCircleOutline, Icon28ErrorCircleOutline
 } from "@vkontakte/icons";
-import {IClient, ITrainer, IWorkout, IWorkoutType, WorkoutStatusType} from "../../types";
+import {IAdmin, IClient, ITrainer, IWorkout, IWorkoutType, WorkoutStatusType} from "../../types";
 import {api} from "../../api";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 import {ClientSelect} from "../ClientSelect/ClientSelect";
@@ -39,6 +36,7 @@ export const WorkoutInfoBlock: React.FC<WorkoutInfoBlockProps> = ({
   const [editMode, setEditMode] = useState(false)
   const [client, setClient] = useState<IClient>(workout.client)
   const [trainer, setTrainer] = useState<ITrainer>(workout.trainer)
+  const [admin, setAdmin] = useState<IAdmin>(workout.admin)
   const [workoutType, setWorkoutType] = useState<IWorkoutType>(workout.workout_type)
   const [date, setDate] = useState<Date | undefined>(new Date(workout.date))
   const [status, setStatus] = useState(workout.status)
@@ -104,6 +102,9 @@ export const WorkoutInfoBlock: React.FC<WorkoutInfoBlockProps> = ({
                   <Icon16Clock width={18} height={18} color={'#ffa918'}/>
             }>
               Статус: {status === 'done' ? 'проведена' : status === 'cancelled' ? 'отменена' : 'запланирована'}
+            </MiniInfoCell>
+            <MiniInfoCell before={<Icon20BrushOutline/>}>
+              Создатель: {admin.first_name} {admin.last_name}
             </MiniInfoCell>
           </>
         }

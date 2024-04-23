@@ -14,7 +14,7 @@ export const WorkoutTypeCreatePanel: React.FC<ProtectedPanelProps> = ({
   const [showErrors,setShowErrors] = useState(false);
   const router = useRouteNavigator();
 
-  const createWorkoutType = () => {
+  const onSubmit = () => {
     if (title && price) {
       router.showPopout(
         <ScreenSpinner/>
@@ -39,7 +39,10 @@ export const WorkoutTypeCreatePanel: React.FC<ProtectedPanelProps> = ({
       </CommonPanelHeader>
 
       <Group>
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={e => {
+          e.preventDefault();
+          onSubmit();
+        }}>
           <FormItem top={'Наименование типа'}>
             <Input
               status={(showErrors && !title) ? 'error' : 'default'}
@@ -64,7 +67,7 @@ export const WorkoutTypeCreatePanel: React.FC<ProtectedPanelProps> = ({
             />
           </FormItem>
           <FormItem>
-            <Button onClick={createWorkoutType} stretched size={'m'}>
+            <Button onClick={onSubmit} stretched size={'m'}>
               Сохранить
             </Button>
           </FormItem>
