@@ -14,7 +14,6 @@ import './style.scss';
 import {CommonPanelHeader, ProtectedPanel, ProtectedPanelProps} from "../../components";
 import {WorkoutCard} from "../../components/WorkoutCard/WorkoutCard";
 import {
-  Icon24DoorArrowRightOutline,
   Icon24UserAddOutline, Icon28AddSquareOutline,
   Icon56RudeMessageOutline,
   Icon56SearchOutline
@@ -62,14 +61,6 @@ export const WorkoutsPanel: React.FC<ProtectedPanelProps> = ({
     <ProtectedPanel nav={nav} redirectTo={redirectTo}>
       <CommonPanelHeader
         root
-        after={
-          <PanelHeaderButton onClick={() => {
-            localStorage.removeItem('jwt-access-token');
-            router.replace('/login');
-          }}>
-            <Icon24DoorArrowRightOutline color={'var(--vkui--color_background_negative)'}/>
-          </PanelHeaderButton>
-        }
         before={
           <PanelHeaderButton onClick={() => {
             router.push('/workout/new')
