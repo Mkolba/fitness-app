@@ -166,12 +166,12 @@ class API {
     })
   }
 
-  async editClient(id: number, firstName: string, lastName: string, phone: string) {
+  async editClient(id: number, firstName: string, lastName: string, surname: string) {
     return this.call('/fitness/client/edit', 'POST', {
       id: id,
       first_name: firstName,
       last_name: lastName,
-      phone_number: phone
+      surname: surname
     })
   }
 
