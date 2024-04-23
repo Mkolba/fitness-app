@@ -205,6 +205,10 @@ class API {
     return this.call(`/fitness/workout/type?id=${id}`, 'GET')
   }
 
+  async deleteWorkoutType(id: number) {
+    return this.call(`/fitness/workout/type/delete?id=${id}`, 'GET')
+  }
+
   async createWorkout(clientId: number, trainerId: number, workoutTypeId: number, date: Date) {
     return this.call('/fitness/workout/create', 'POST', {
       client_id: clientId,
