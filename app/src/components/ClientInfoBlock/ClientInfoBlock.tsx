@@ -82,11 +82,11 @@ export const ClientInfoBlock: React.FC<ClientInfoBlockProps> = ({
             e.preventDefault();
             onSubmit();
           }}>
-            <FormItem top={'Имя'}>
-              <Input value={firstName} onChange={e => setFirstName(e.target.value)}/>
-            </FormItem>
             <FormItem top={'Фамилия'}>
               <Input value={lastName} onChange={e => setLastName(e.target.value)}/>
+            </FormItem>
+            <FormItem top={'Имя'}>
+              <Input value={firstName} onChange={e => setFirstName(e.target.value)}/>
             </FormItem>
             <FormItem top={'Отчество'}>
               <Input value={surname} onChange={e => setSurname(e.target.value)}/>
