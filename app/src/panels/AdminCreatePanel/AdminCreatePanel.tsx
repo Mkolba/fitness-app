@@ -22,7 +22,7 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
       router.showPopout(
         <ScreenSpinner/>
       )
-      api.createAdmin(firstName, lastName, login, password, sudo).then(data => {
+      api.createAdmin(firstName, lastName, login, password, sudo).then(() => {
 
       }).catch(() => {
 

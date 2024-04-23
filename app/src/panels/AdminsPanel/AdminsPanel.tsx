@@ -16,7 +16,7 @@ import {
   Icon56RudeMessageOutline,
   Icon56SearchOutline
 } from "@vkontakte/icons";
-import {IAdmin, IClient} from "../../types";
+import {IAdmin} from "../../types";
 import {api} from "../../api";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 

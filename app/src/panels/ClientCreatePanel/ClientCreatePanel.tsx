@@ -20,7 +20,7 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
       router.showPopout(
         <ScreenSpinner/>
       )
-      api.createClient(firstName, lastName, surname).then(data => {
+      api.createClient(firstName, lastName, surname).then(() => {
 
       }).catch(() => {
 

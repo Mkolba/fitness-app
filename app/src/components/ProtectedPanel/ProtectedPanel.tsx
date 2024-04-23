@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect} from "react";
+import React, {useLayoutEffect} from "react";
 import {Panel, PanelProps} from "@vkontakte/vkui";
 import {useUserType} from "../../hooks";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
