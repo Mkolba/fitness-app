@@ -27,6 +27,7 @@ export const AdminPanel: React.FC<ProtectedPanelProps> = ({
 
   const [admin, setAdmin] = useState<IAdmin | null>(null);
   const [isFetching, setIsFetching] = useState(true);
+  const [isMe, setIsMe] = useState(api.getToken().payload.UserID === Number(adminId))
 
   const router = useRouteNavigator();
 
@@ -87,7 +88,7 @@ export const AdminPanel: React.FC<ProtectedPanelProps> = ({
           </CommonPanelHeader>
 
           <AdminInfoBlock admin={admin} editable={false}/> {/* Нет функционала edit на API */}
-          {api.getToken().payload.UserID !== Number(adminId) &&
+          { !isMe &&
             <Group>
               <Div>
                 <Button appearance={'negative'} stretched size={'m'} onClick={showDeleteAdminAlert}>
