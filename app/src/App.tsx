@@ -42,7 +42,7 @@ export const App: React.FC = () => {
   return (
     <SplitLayout popout={popout}>
       <SplitCol width={'100%'} stretchedOnMobile animate>
-        <RootEpic showTabbar={userType === 'admin'}>
+        <RootEpic showTabbar={['admin', 'sudo'].includes(userType)}>
           <View nav={'login'} activePanel={activePanel}>
             <LoginPanel nav={'login'}/>
           </View>
