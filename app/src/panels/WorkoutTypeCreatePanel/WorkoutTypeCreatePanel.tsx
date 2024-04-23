@@ -10,7 +10,7 @@ export const WorkoutTypeCreatePanel: React.FC<ProtectedPanelProps> = ({
   redirectTo
 }) => {
   const [title, setTitle] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('');
   const [showErrors,setShowErrors] = useState(false);
   const router = useRouteNavigator();
 
@@ -19,13 +19,13 @@ export const WorkoutTypeCreatePanel: React.FC<ProtectedPanelProps> = ({
       router.showPopout(
         <ScreenSpinner/>
       )
-      api.createWorkoutType(title, price).then(data => {
+      api.createWorkoutType(title, Number(price)).then(data => {
 
       }).catch(() => {
 
       }).finally(() => {
         router.hidePopout();
-        router.back();
+        setTimeout(() => router.back(), 200);
       })
     } else {
       setShowErrors(true);
@@ -61,7 +61,7 @@ export const WorkoutTypeCreatePanel: React.FC<ProtectedPanelProps> = ({
               value={price}
               type={'number'}
               onChange={e => {
-                setPrice(Number(e.target.value));
+                setPrice(e.target.value);
                 setShowErrors(false);
               }}
             />

@@ -15,8 +15,8 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
   const [showErrors, setShowErrors] = useState(false);
   const router = useRouteNavigator();
 
-  const createClient = () => {
-    if (firstName && lastName && surname) {
+  const onSubmit = () => {
+    if (firstName && lastName) {
       router.showPopout(
         <ScreenSpinner/>
       )
@@ -26,7 +26,7 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
 
       }).finally(() => {
         router.hidePopout();
-        router.back();
+        setTimeout(() => router.back(), 200);
       })
     } else {
       setShowErrors(true);
@@ -40,7 +40,10 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
       </CommonPanelHeader>
 
       <Group>
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={e => {
+          e.preventDefault();
+          onSubmit();
+        }}>
           <FormItem top={'Имя клиента'}>
             <Input
               status={(showErrors && !firstName) ? 'error' : 'default'}
@@ -65,8 +68,7 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
           </FormItem>
           <FormItem top={'Отчество клиента'}>
             <Input
-              status={(showErrors && !surname) ? 'error' : 'default'}
-              placeholder={'Введите номер телефона'}
+              placeholder={'Введите отчество клиента'}
               value={surname}
               onChange={e => {
                 setSurname(e.target.value);
@@ -75,7 +77,7 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
             />
           </FormItem>
           <FormItem>
-            <Button onClick={createClient} stretched size={'m'}>
+            <Button onClick={onSubmit} stretched size={'m'}>
               Сохранить
             </Button>
           </FormItem>

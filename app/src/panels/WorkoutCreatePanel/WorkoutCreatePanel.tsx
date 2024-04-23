@@ -2,14 +2,10 @@ import React, {useState} from "react";
 import './style.scss'
 import {
   Button, ButtonGroup,
-  CustomSelect,
-  CustomSelectOption,
   DateInput,
   FormItem,
   Group,
-  Input,
-  Panel,
-  PanelProps, ScreenSpinner
+  ScreenSpinner
 } from "@vkontakte/vkui";
 import {
   ClientSelect,
@@ -19,8 +15,7 @@ import {
   TrainerSelect,
   WorkoutTypeSelect
 } from "../../components";
-import {IClient, ITrainer, IWorkoutType, WorkoutStatusType} from "../../types";
-import {Icon16CancelCircle, Icon16Clock, Icon16DoneCircle} from "@vkontakte/icons";
+import {IClient, ITrainer, IWorkoutType} from "../../types";
 import {api} from "../../api";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 
@@ -47,7 +42,7 @@ export const WorkoutCreatePanel: React.FC<ProtectedPanelProps> = ({
 
       }).finally(() => {
         router.hidePopout();
-        router.back();
+        setTimeout(() => router.back(), 200);
       })
     } else {
      setShowErrors(true);

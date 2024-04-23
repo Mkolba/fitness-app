@@ -17,7 +17,7 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
   const [showErrors, setShowErrors] = useState(false);
   const router = useRouteNavigator();
 
-  const createClient = () => {
+  const onSubmit = () => {
     if (firstName && lastName && login && password) {
       router.showPopout(
         <ScreenSpinner/>
@@ -28,7 +28,7 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
 
       }).finally(() => {
         router.hidePopout();
-        router.back();
+        setTimeout(() => router.back(), 200);
       })
     } else {
       setShowErrors(true);
@@ -42,7 +42,10 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
       </CommonPanelHeader>
 
       <Group>
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={e => {
+          e.preventDefault();
+          onSubmit();
+        }}>
           <FormItem top={'Имя администратора'}>
             <Input
               status={(showErrors && !firstName) ? 'error' : 'default'}
@@ -98,7 +101,7 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
             </Checkbox>
           </FormItem>
           <FormItem>
-            <Button onClick={createClient} stretched size={'m'}>
+            <Button onClick={onSubmit} stretched size={'m'}>
               Сохранить
             </Button>
           </FormItem>

@@ -25,7 +25,7 @@ export const TrainerCreatePanel: React.FC<ProtectedPanelProps> = ({
 
       }).finally(() => {
         router.hidePopout();
-        router.back();
+        setTimeout(() => router.back(), 200);
       })
     } else {
       setShowErrors(true);
@@ -39,7 +39,10 @@ export const TrainerCreatePanel: React.FC<ProtectedPanelProps> = ({
       </CommonPanelHeader>
 
       <Group>
-        <form onSubmit={e => e.preventDefault()}>
+        <form onSubmit={e => {
+          e.preventDefault();
+          createTrainer();
+        }}>
           <FormItem top={'Имя тренера'}>
             <Input
               status={(showErrors && !firstName) ? 'error' : 'default'}

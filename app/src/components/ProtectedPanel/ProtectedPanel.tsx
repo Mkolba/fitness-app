@@ -21,7 +21,7 @@ export const ProtectedPanel: React.FC<ProtectedPanelProps> = ({
 
   useLayoutEffect(() => {
     if (!allowedRoles.includes(userType)) {
-      setTimeout(() => router.replace(redirectTo), 600);
+      setTimeout(() => router.replace(redirectTo), 1000);
     }
   }, [userType])
 
