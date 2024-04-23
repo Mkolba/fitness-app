@@ -3,6 +3,8 @@ import {SplitCol, SplitLayout, View} from "@vkontakte/vkui";
 import {useActiveVkuiLocation, useGetPanelForView, usePopout, useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 import {RootEpic} from "./components";
 import {
+  AdminCreatePanel,
+  AdminPanel, AdminsPanel,
   ClientCreatePanel,
   ClientPanel,
   ClientsPanel,
@@ -45,6 +47,11 @@ export const App: React.FC = () => {
         <RootEpic showTabbar={['admin', 'sudo'].includes(userType)}>
           <View nav={'login'} activePanel={activePanel}>
             <LoginPanel nav={'login'}/>
+          </View>
+          <View nav={'admins'} activePanel={activePanel}>
+            <AdminsPanel nav={'admins'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
+            <AdminPanel nav={'admin'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
+            <AdminCreatePanel nav={'adminCreate'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
           </View>
           <View nav={'workouts'} activePanel={activePanel}>
             <WorkoutsPanel nav={'workouts'} redirectTo={`/trainer/${userId}`}/>

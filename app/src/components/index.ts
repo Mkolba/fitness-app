@@ -12,3 +12,5 @@ export {TrainerSelect} from "./TrainerSelect/TrainerSelect";
 export {WorkoutTypeCard} from "./WorkoutTypeCard/WorkoutTypeCard";
 export {WorkoutTypeInfoBlock} from "./WorkoutTypeInfoBlock/WorkoutTypeInfoBlock";
 export {WorkoutTypeSelect} from "./WorkoutTypeSelect/WorkoutTypeSelect";
+export {AdminCard} from "./AdminCard/AdminCard";
+export {AdminInfoBlock} from "./AdminInfoBlock/AdminInfoBlock";

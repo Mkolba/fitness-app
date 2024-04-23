@@ -10,3 +10,6 @@ export {WorkoutTypeCreatePanel} from "./WorkoutTypeCreatePanel/WorkoutTypeCreate
 export {TrainerCreatePanel} from "./TrainerCreatePanel/TrainerCreatePanel";
 export {ClientCreatePanel} from "./ClientCreatePanel/ClientCreatePanel";
 export {WorkoutTypePanel} from "./WorkoutTypePanel/WorkoutTypePanel";
+export {AdminPanel} from "./AdminPanel/AdminPanel";
+export {AdminsPanel} from "./AdminsPanel/AdminsPanel";
+export {AdminCreatePanel} from "./AdminCreatePanel/AdminCreatePanel";

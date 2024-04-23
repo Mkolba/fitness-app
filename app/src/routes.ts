@@ -5,9 +5,16 @@ import {
   RoutesConfig,
 } from "@vkontakte/vk-mini-apps-router";
 
+// ts-ignore из-за кривого тайпинга в роутере
+// @ts-ignore
 export const routes = RoutesConfig.create([
   createView("login", [
     createPanel("login", "/login", [])
+  ]),
+  createView("admins", [
+    createPanel("admins", "/admins", []),
+    createPanel("admin", '/admin/:id', []),
+    createPanel('adminCreate', '/admin/new'),
   ]),
   createView("workouts", [
     createPanel("workouts", "/", []),

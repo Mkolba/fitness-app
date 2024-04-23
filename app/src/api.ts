@@ -1,8 +1,7 @@
 
 import {IClient, ITrainer, IWorkout, IWorkoutType, WorkoutStatusType} from "./types";
-import {trainersDataMockup, workoutsDataMockup} from "./mockups";
-import {withRouter} from "@vkontakte/vk-mini-apps-router";
 import {accessTokenAtom} from "./store";
+import {sudoToken} from "./mockupData";
 
 const BASE_ENDPOINT = process.env.REACT_APP_ENDPOINT || 'https://fitness.graphbots.ru'
 type RequestType = 'PUT' | 'POST' | 'DELETE' | 'PATCH' | 'GET'
@@ -34,7 +33,10 @@ class API {
       token = this.getToken()['token'] as string;
     }
 
-    let headers: any = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'};
+    // TODO: remove mock token when api will be ready
+    // let headers: any = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'};
+    let headers: any = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTcxNjY5ODYsImlhdCI6MTcxMTkxMDk4NiwiVXNlcklEIjoxLCJSb2xlIjoiYWRtaW4ifQ.QeAZ0u2KYS2ZW2MY_EZflbv7nOwqQ7vKkACvmYEaoeA', 'Content-Type': 'application/json'};
+
     let options = {
       method: type,
       body: params.formData ? params.formData : JSON.stringify(params),
@@ -73,8 +75,11 @@ class API {
 
   async authAdmin(login: string, password: string) {
     return this.call('/auth/admin/sign-in', 'POST', {login: login, password: password}).then(data => {
-      localStorage.setItem('jwt-access-token', data.token)
-      accessTokenAtom.set(data.token)
+      // TODO: remove mock token when api will be ready
+      // localStorage.setItem('jwt-access-token', data.token)
+      // accessTokenAtom.set(data.token)
+      localStorage.setItem('jwt-access-token', sudoToken);
+      accessTokenAtom.set(sudoToken);
       return 'ok'
     })
   }
@@ -108,6 +113,33 @@ class API {
 
   async getTrainers(): Promise<ITrainer[]> {
     return this.call('/fitness/trainer/list', 'GET')
+  }
+
+  // TODO: add password when api will be ready
+  async createAdmin(firstName: string, lastName: string, login: string, password: string) {
+    return this.call('/fitness/client/create', 'POST', {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: login,
+    })
+  }
+
+  // TODO: add password when api will be ready
+  async editAdmin(id: number, firstName: string, lastName: string, phone: string, password: string) {
+    return this.call('/fitness/client/edit', 'POST', {
+      id: id,
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phone
+    })
+  }
+
+  async getAdmin(id: number): Promise<IClient> {
+    return this.call(`/fitness/client?id=${id}`, 'GET')
+  }
+
+  async getAdmins(): Promise<IClient[]> {
+    return this.call('/fitness/client/list', 'GET')
   }
 
   async createClient(firstName: string, lastName: string, phone: string) {

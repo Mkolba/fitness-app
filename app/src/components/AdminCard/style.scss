@@ -1,0 +1,27 @@
+.AdminCard {
+  overflow: hidden;
+
+  .AdminCard__Tappable {
+    display: flex;
+    padding: 12px;
+
+    .AdminCard__Content {
+      flex-grow: 1;
+
+      .AdminCard--header {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .AdminCard--description {
+        color: var(--vkui--color_text_secondary)
+      }
+    }
+
+    .AdminCard__Chevron {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
