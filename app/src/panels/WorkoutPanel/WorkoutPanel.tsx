@@ -73,15 +73,15 @@ export const WorkoutPanel: React.FC<PanelProps> = ({
             Карточка тренировки
           </CommonPanelHeader>
 
-          <WorkoutInfoBlock workout={workout} editable={userType === 'admin'}/>
+          <WorkoutInfoBlock workout={workout} editable={['admin', 'sudo'].includes(userType)}/>
 
           <Group header={<Header>Тренер</Header>}>
             <CardGrid size={'l'}>
-              <TrainerCard trainer={workout.trainer} expandable={userType === 'admin'}/>
+              <TrainerCard trainer={workout.trainer} expandable={['admin', 'sudo'].includes(userType)}/>
             </CardGrid>
           </Group>
 
-          {userType === 'admin' &&
+          {['admin', 'sudo'].includes(userType) &&
             <Group>
               <Div>
                 <Button appearance={'negative'} stretched size={'l'} onClick={showDeleteWorkoutAlert}>
