@@ -41,6 +41,19 @@ export const App: React.FC = () => {
     }
   }, [userType])
 
+  const getRedirectRule = () => {
+    switch (userType) {
+      case "trainer":
+        return `/trainer/${userId}`
+      case "admin":
+        return '/'
+      case "not_authorized":
+        return '/login'
+      default:
+        return '/'
+    }
+  }
+
   return (
     <SplitLayout popout={popout}>
       <SplitCol width={'100%'} stretchedOnMobile animate>
@@ -49,29 +62,29 @@ export const App: React.FC = () => {
             <LoginPanel nav={'login'}/>
           </View>
           <View nav={'admins'} activePanel={activePanel}>
-            <AdminsPanel nav={'admins'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
-            <AdminPanel nav={'admin'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
-            <AdminCreatePanel nav={'adminCreate'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
+            <AdminsPanel nav={'admins'} redirectTo={getRedirectRule()} allowedRoles={['sudo']}/>
+            <AdminPanel nav={'admin'} redirectTo={getRedirectRule()} allowedRoles={['sudo']}/>
+            <AdminCreatePanel nav={'adminCreate'} redirectTo={getRedirectRule()} allowedRoles={['sudo']}/>
           </View>
           <View nav={'workouts'} activePanel={activePanel}>
-            <WorkoutsPanel nav={'workouts'} redirectTo={`/trainer/${userId}`}/>
+            <WorkoutsPanel nav={'workouts'} redirectTo={getRedirectRule()}/>
             <WorkoutPanel nav={'workout'}/>
-            <WorkoutCreatePanel nav={'workoutCreate'} redirectTo={`/trainer/${userId}`}/>
+            <WorkoutCreatePanel nav={'workoutCreate'} redirectTo={getRedirectRule()}/>
           </View>
           <View nav={'trainers'} activePanel={activePanel}>
-            <TrainersPanel nav={'trainers'} redirectTo={`/trainer/${userId}`}/>
+            <TrainersPanel nav={'trainers'} redirectTo={getRedirectRule()}/>
             <TrainerPanel nav={'trainer'}/>
-            <TrainerCreatePanel nav={'trainerCreate'} redirectTo={userType === 'trainer' ? `/trainer/${userId}` : '/'} allowedRoles={['sudo']}/>
+            <TrainerCreatePanel nav={'trainerCreate'} redirectTo={getRedirectRule()} allowedRoles={['sudo']}/>
           </View>
           <View nav={'clients'} activePanel={activePanel}>
-            <ClientsPanel nav={'clients'} redirectTo={`/trainer/${userId}`}/>
-            <ClientPanel nav={'client'} redirectTo={`/trainer/${userId}`}/>
-            <ClientCreatePanel nav={'clientCreate'} redirectTo={`/trainer/${userId}`}/>
+            <ClientsPanel nav={'clients'} redirectTo={getRedirectRule()}/>
+            <ClientPanel nav={'client'} redirectTo={getRedirectRule()}/>
+            <ClientCreatePanel nav={'clientCreate'} redirectTo={getRedirectRule()}/>
           </View>
           <View nav={'workoutTypes'} activePanel={activePanel}>
-            <WorkoutTypesPanel nav={'workoutTypes'} redirectTo={`/trainer/${userId}`}/>
-            <WorkoutTypePanel nav={'workoutType'} redirectTo={`/trainer/${userId}`}/>
-            <WorkoutTypeCreatePanel nav={'workoutTypeCreate'} redirectTo={`/trainer/${userId}`}/>
+            <WorkoutTypesPanel nav={'workoutTypes'} redirectTo={getRedirectRule()}/>
+            <WorkoutTypePanel nav={'workoutType'} redirectTo={getRedirectRule()}/>
+            <WorkoutTypeCreatePanel nav={'workoutTypeCreate'} redirectTo={getRedirectRule()}/>
           </View>
         </RootEpic>
       </SplitCol>

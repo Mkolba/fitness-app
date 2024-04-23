@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useLayoutEffect} from "react";
 import {Panel, PanelProps} from "@vkontakte/vkui";
 import {useUserType} from "../../hooks";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
@@ -19,7 +19,7 @@ export const ProtectedPanel: React.FC<ProtectedPanelProps> = ({
   const userType = useUserType();
   const router = useRouteNavigator();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!allowedRoles.includes(userType)) {
       setTimeout(() => router.replace(redirectTo), 600);
     }
