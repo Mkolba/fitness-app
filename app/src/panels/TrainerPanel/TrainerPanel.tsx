@@ -36,7 +36,7 @@ export const TrainerPanel: React.FC<PanelProps> = ({
         setTrainer(data)
       }).catch(() => {})
 
-      if (userType === 'admin') {
+      if (['sudo', 'admin'].includes(userType)) {
         api.getWorkoutsByTrainer(Number(trainerId)).then(data => {
           setWorkouts(data)
         }).catch(() => {})
@@ -54,7 +54,7 @@ export const TrainerPanel: React.FC<PanelProps> = ({
     <Panel nav={nav}>
       {trainer ?
         <>
-          <CommonPanelHeader root={userType !== 'admin'} after={userType === 'trainer' &&
+          <CommonPanelHeader root={!['sudo', 'admin'].includes(userType)} after={userType === 'trainer' &&
             <PanelHeaderButton onClick={() => {
               localStorage.removeItem('jwt-access-token');
               router.replace('/login');
@@ -65,9 +65,9 @@ export const TrainerPanel: React.FC<PanelProps> = ({
             Карточка тренера
           </CommonPanelHeader>
 
-          <TrainerInfoBlock trainer={trainer} editable={userType === 'admin'}/>
+          <TrainerInfoBlock trainer={trainer} editable={['sudo', 'admin'].includes(userType)}/>
 
-          <Group header={<Header aside={userType === 'admin' && <Link>Добавить</Link>}>Тренировки</Header>}>
+          <Group>
             {workouts.length ?
               <CardGrid size={'l'}>
                 {
