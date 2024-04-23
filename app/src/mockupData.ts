@@ -1,1 +1,0 @@
-export const sudoToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTc1ODA0NjAsImlhdCI6MTcxMjMyNDQ2MCwiVXNlcklEIjoxLCJSb2xlIjoic3VkbyJ9.BXonxZqlkpmzmGUpC7K_SOR68R7MLHhyt1WNZCLLpY8'

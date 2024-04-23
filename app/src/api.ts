@@ -1,7 +1,14 @@
 
-import {IClient, ITrainer, IWorkout, IWorkoutType, WorkoutStatusType} from "./types";
+import {
+  IAdmin,
+  IClient,
+  ITrainer,
+  ITrainerSalary,
+  IWorkout,
+  IWorkoutType,
+  WorkoutStatusType
+} from "./types";
 import {accessTokenAtom} from "./store";
-import {sudoToken} from "./mockupData";
 
 const BASE_ENDPOINT = process.env.REACT_APP_ENDPOINT || 'https://fitness.graphbots.ru'
 type RequestType = 'PUT' | 'POST' | 'DELETE' | 'PATCH' | 'GET'
@@ -33,9 +40,7 @@ class API {
       token = this.getToken()['token'] as string;
     }
 
-    // TODO: remove mock token when api will be ready
-    // let headers: any = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'};
-    let headers: any = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTcxNjY5ODYsImlhdCI6MTcxMTkxMDk4NiwiVXNlcklEIjoxLCJSb2xlIjoiYWRtaW4ifQ.QeAZ0u2KYS2ZW2MY_EZflbv7nOwqQ7vKkACvmYEaoeA', 'Content-Type': 'application/json'};
+    let headers: any = {'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json'};
 
     let options = {
       method: type,
@@ -75,11 +80,8 @@ class API {
 
   async authAdmin(login: string, password: string) {
     return this.call('/auth/admin/sign-in', 'POST', {login: login, password: password}).then(data => {
-      // TODO: remove mock token when api will be ready
-      // localStorage.setItem('jwt-access-token', data.token)
-      // accessTokenAtom.set(data.token)
-      localStorage.setItem('jwt-access-token', sudoToken);
-      accessTokenAtom.set(sudoToken);
+      localStorage.setItem('jwt-access-token', data.token)
+      accessTokenAtom.set(data.token)
       return 'ok'
     })
   }
@@ -115,38 +117,56 @@ class API {
     return this.call('/fitness/trainer/list', 'GET')
   }
 
-  // TODO: add password when api will be ready
-  async createAdmin(firstName: string, lastName: string, login: string, password: string) {
-    return this.call('/fitness/client/create', 'POST', {
+  async getTodayTrainerSalary(): Promise<ITrainerSalary> {
+    return this.call('/fitness/trainer/cash/day', 'GET')
+  }
+
+  async getMonthTrainerSalary(): Promise<ITrainerSalary> {
+    return this.call('/fitness/trainer/cash/month', 'GET')
+  }
+
+  async createAdmin(firstName: string, lastName: string, login: string, password: string, sudo: boolean) {
+    return this.call('/fitness/admin/create', 'POST', {
       first_name: firstName,
       last_name: lastName,
-      phone_number: login,
+      login: login,
+      password: password,
+      super: sudo
     })
   }
 
-  // TODO: add password when api will be ready
-  async editAdmin(id: number, firstName: string, lastName: string, phone: string, password: string) {
-    return this.call('/fitness/client/edit', 'POST', {
+  async editAdmin(id: number, firstName: string, lastName: string, login: string, password: string, sudo: boolean) {
+    return this.call('/fitness/admin/edit', 'POST', {
       id: id,
       first_name: firstName,
       last_name: lastName,
-      phone_number: phone
+      login: login,
+      password: password,
+      super: sudo
     })
   }
 
-  async getAdmin(id: number): Promise<IClient> {
-    return this.call(`/fitness/client?id=${id}`, 'GET')
+  async getAdmin(id: number): Promise<IAdmin> {
+    return new Promise((resolve, reject) => {
+      this.getAdmins().then(data => {
+        resolve(data.filter(item => item.id === id)[0])
+      })
+    })
   }
 
-  async getAdmins(): Promise<IClient[]> {
-    return this.call('/fitness/client/list', 'GET')
+  async getAdmins(): Promise<IAdmin[]> {
+    return this.call('/fitness/admin/list', 'GET')
   }
 
-  async createClient(firstName: string, lastName: string, phone: string) {
+  async deleteAdmin(id: number) {
+    return this.call(`/fitness/admin/delete?id=${id}`, 'GET')
+  }
+
+  async createClient(firstName: string, lastName: string, surname: string) {
     return this.call('/fitness/client/create', 'POST', {
       first_name: firstName,
       last_name: lastName,
-      phone_number: phone
+      surname: surname
     })
   }
 

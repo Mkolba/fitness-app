@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import './style.scss'
-import {Button, FormItem, Group, Input, ScreenSpinner} from "@vkontakte/vkui";
+import {Button, Checkbox, FormItem, Group, Input, ScreenSpinner} from "@vkontakte/vkui";
 import {CommonPanelHeader, ProtectedPanel, ProtectedPanelProps} from "../../components";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 import {api} from "../../api";
@@ -13,6 +13,7 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
   const [lastName, setLastName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [sudo, setSudo] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
   const router = useRouteNavigator();
 
@@ -21,7 +22,7 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
       router.showPopout(
         <ScreenSpinner/>
       )
-      api.createAdmin(firstName, lastName, login, password).then(data => {
+      api.createAdmin(firstName, lastName, login, password, sudo).then(data => {
 
       }).catch(() => {
 
@@ -79,12 +80,22 @@ export const AdminCreatePanel: React.FC<ProtectedPanelProps> = ({
             <Input
               status={(showErrors && !password) ? 'error' : 'default'}
               placeholder={'Введите пароль'}
-              value={login}
+              value={password}
               onChange={e => {
                 setPassword(e.target.value);
                 setShowErrors(false);
               }}
             />
+          </FormItem>
+          <FormItem>
+            <Checkbox
+              checked={sudo}
+              onChange={e => {
+                setSudo(e.target.checked);
+              }}
+            >
+              Суперадмин
+            </Checkbox>
           </FormItem>
           <FormItem>
             <Button onClick={createClient} stretched size={'m'}>

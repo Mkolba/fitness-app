@@ -1,8 +1,8 @@
 import {
-  CardGrid,
+  Card,
+  CardGrid, Div,
   Group,
   Header,
-  Link,
   Panel,
   PanelHeaderButton,
   PanelProps,
@@ -27,6 +27,8 @@ export const TrainerPanel: React.FC<PanelProps> = ({
   const {id: trainerId} = useParams()
   const [trainer, setTrainer] = useState<ITrainer | null>(null);
   const [workouts, setWorkouts] = useState<IWorkout[]>([]);
+  const [todaySalary, setTodaySalary] = useState<number | 'loading'>('loading');
+  const [monthSalary, setMonthSalary] = useState<number | 'loading'>('loading');
   const userType = useUserType();
   const router = useRouteNavigator();
 
@@ -47,6 +49,16 @@ export const TrainerPanel: React.FC<PanelProps> = ({
           setWorkouts(data)
         }).catch(() => {})
       }
+
+      if (userType === 'trainer') {
+        api.getTodayTrainerSalary().then((data) => {
+          setTodaySalary(data.cash)
+        })
+
+        api.getMonthTrainerSalary().then((data) => {
+          setMonthSalary(data.cash)
+        })
+      }
     }
   }, [trainerId])
 
@@ -66,6 +78,35 @@ export const TrainerPanel: React.FC<PanelProps> = ({
           </CommonPanelHeader>
 
           <TrainerInfoBlock trainer={trainer} editable={['sudo', 'admin'].includes(userType)}/>
+
+          {userType === 'trainer' &&
+            <Group header={<Header>Заработок</Header>}>
+              <CardGrid size={'m'}>
+                <Card>
+                  <Div>
+                    {todaySalary === 'loading' ?
+                      <Spinner size={'medium'}/>
+                      :
+                      <span>
+                        За сегодня:<br/>{todaySalary}₽
+                      </span>
+                    }
+                  </Div>
+                </Card>
+                <Card>
+                  <Div>
+                    {monthSalary === 'loading' ?
+                      <Spinner size={'medium'}/>
+                      :
+                      <span>
+                        За месяц:<br/>{monthSalary}₽
+                      </span>
+                    }
+                  </Div>
+                </Card>
+              </CardGrid>
+            </Group>
+          }
 
           <Group>
             {workouts.length ?

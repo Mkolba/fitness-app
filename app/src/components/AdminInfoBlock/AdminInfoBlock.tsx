@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import './style.scss'
 import {
   Button,
-  ButtonGroup,
+  ButtonGroup, Checkbox,
   FormItem,
   Group,
   Header,
@@ -13,16 +13,16 @@ import {
 } from "@vkontakte/vkui";
 import {
   Icon20CopyOutline, Icon20LockOutline,
-  Icon20UserOutline, Icon20UserTagOutline,
+  Icon20UserOutline, Icon20UserTagOutline, Icon24StarShieldOutline,
   Icon28CheckCircleOutline, Icon28ErrorCircleOutline
 } from "@vkontakte/icons";
-import {IClient} from "../../types";
+import {IAdmin} from "../../types";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 import {api} from "../../api";
 import {copyTextToClipboard} from "../../utils";
 
 interface AdminInfoBlockProps {
-  admin: IClient,
+  admin: IAdmin,
   editable: boolean
 }
 
@@ -33,15 +33,16 @@ export const AdminInfoBlock: React.FC<AdminInfoBlockProps> = ({
   const [editMode, setEditMode] = useState(false)
   const [firstName, setFirstName] = useState(admin.first_name)
   const [lastName, setLastName] = useState(admin.last_name)
-  const [login, setLogin] = useState('admin') // admin.login;
-  const [password, setPassword] = useState('admin') // admin.password;
+  const [login, setLogin] = useState(admin.login)
+  const [password, setPassword] = useState(admin.password)
+  const [sudo, setSudo] = useState(admin.super)
 
   const [snackbar, setSnackbar] = useState<React.ReactNode>(undefined);
   const router = useRouteNavigator();
 
   const onSubmit = () => {
     router.showPopout(<ScreenSpinner/>);
-    api.editAdmin(admin.id, firstName, lastName, login, password).then(() => {
+    api.editAdmin(admin.id, firstName, lastName, login, password, sudo).then(() => {
       router.hidePopout();
       setEditMode(false);
       setSnackbar(
@@ -131,6 +132,9 @@ export const AdminInfoBlock: React.FC<AdminInfoBlockProps> = ({
             <MiniInfoCell before={<Icon20LockOutline/>} mode={'more'} after={<Icon20CopyOutline/>} onClick={copyPassword}>
               {password}
             </MiniInfoCell>
+            <MiniInfoCell before={<Icon24StarShieldOutline width={20} height={20}/>}>
+              {sudo ? "Суперадмин" : 'Не суперадмин'}
+            </MiniInfoCell>
           </>
         }
         {editMode &&
@@ -149,6 +153,11 @@ export const AdminInfoBlock: React.FC<AdminInfoBlockProps> = ({
             </FormItem>
             <FormItem top={'Пароль'}>
               <Input value={password} onChange={e => setPassword(e.target.value)}/>
+            </FormItem>
+            <FormItem>
+              <Checkbox checked={sudo} onChange={e => setSudo(e.target.checked)}>
+                Суперадмин
+              </Checkbox>
             </FormItem>
             <FormItem>
               <ButtonGroup stretched>

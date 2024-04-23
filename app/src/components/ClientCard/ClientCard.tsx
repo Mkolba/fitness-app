@@ -26,10 +26,7 @@ export const ClientCard: React.FC<ClientCardProps> = ({
       }} className={'ClientCard__Tappable'}>
         <div className={'ClientCard__Content'}>
           <div className={'ClientCard--header'}>
-            {client.first_name} {client.last_name}
-          </div>
-          <div className={'ClientCard--description'}>
-            {client.phone_number}
+            {client.last_name} {client.first_name} {client.surname}
           </div>
         </div>
         {expandable &&

@@ -11,16 +11,16 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
 }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [surname, setSurname] = useState('');
   const [showErrors, setShowErrors] = useState(false);
   const router = useRouteNavigator();
 
   const createClient = () => {
-    if (firstName && lastName && phone) {
+    if (firstName && lastName && surname) {
       router.showPopout(
         <ScreenSpinner/>
       )
-      api.createClient(firstName, lastName, phone).then(data => {
+      api.createClient(firstName, lastName, surname).then(data => {
 
       }).catch(() => {
 
@@ -63,13 +63,13 @@ export const ClientCreatePanel: React.FC<ProtectedPanelProps> = ({
               }}
             />
           </FormItem>
-          <FormItem top={'Номер клиента'}>
+          <FormItem top={'Отчество клиента'}>
             <Input
-              status={(showErrors && !phone) ? 'error' : 'default'}
+              status={(showErrors && !surname) ? 'error' : 'default'}
               placeholder={'Введите номер телефона'}
-              value={phone}
+              value={surname}
               onChange={e => {
-                setPhone(e.target.value);
+                setSurname(e.target.value);
                 setShowErrors(false);
               }}
             />

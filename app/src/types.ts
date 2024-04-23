@@ -13,11 +13,24 @@ export interface ITrainer {
   token: string
 }
 
+export interface ITrainerSalary {
+  cash: number
+}
+
 export interface IClient {
   id: number
   first_name: string
   last_name: string
-  phone_number: string
+  surname: string
+}
+
+export interface IAdmin {
+  id: number,
+  first_name: string,
+  last_name: string,
+  login: string,
+  password: string,
+  super: boolean
 }
 
 export interface IWorkoutType {

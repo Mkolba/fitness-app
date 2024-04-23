@@ -16,7 +16,7 @@ import {
   Icon56RudeMessageOutline,
   Icon56SearchOutline
 } from "@vkontakte/icons";
-import {IClient} from "../../types";
+import {IAdmin, IClient} from "../../types";
 import {api} from "../../api";
 import {useRouteNavigator} from "@vkontakte/vk-mini-apps-router";
 
@@ -25,7 +25,7 @@ export const AdminsPanel: React.FC<ProtectedPanelProps> = ({
   redirectTo
 }) => {
   const [search, setSearch] = useState('');
-  const [admins, setAdmins] = useState<IClient[]>([]);
+  const [admins, setAdmins] = useState<IAdmin[]>([]);
   const [isFetching, setIsFetching] = useState(true);
 
   const router = useRouteNavigator();
@@ -40,7 +40,7 @@ export const AdminsPanel: React.FC<ProtectedPanelProps> = ({
     })
   }, [])
 
-  const applySearch = (admin: IClient) => {
+  const applySearch = (admin: IAdmin) => {
     return (
       admin.first_name?.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
       admin.last_name?.toLowerCase().indexOf(search.toLowerCase()) > -1
