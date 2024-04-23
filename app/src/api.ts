@@ -147,11 +147,7 @@ class API {
   }
 
   async getAdmin(id: number): Promise<IAdmin> {
-    return new Promise((resolve, reject) => {
-      this.getAdmins().then(data => {
-        resolve(data.filter(item => item.id === id)[0])
-      })
-    })
+    return this.call(`/fitness/admin?id=${id}`, 'GET')
   }
 
   async getAdmins(): Promise<IAdmin[]> {
@@ -206,11 +202,7 @@ class API {
   }
 
   async getWorkoutType(id: number): Promise<IWorkoutType> {
-    return new Promise((resolve, reject) => {
-      this.getWorkoutTypes().then(data => {
-        resolve(data.filter(item => item.id === id)[0])
-      })
-    })
+    return this.call(`/fitness/workout/type?id=${id}`, 'GET')
   }
 
   async createWorkout(clientId: number, trainerId: number, workoutTypeId: number, date: Date) {
