@@ -43,6 +43,7 @@ export interface IWorkout {
   id: number
   client: IClient
   trainer: ITrainer
+  admin: IAdmin
   workout_type: IWorkoutType
   status: WorkoutStatusType
   date: string

@@ -12,12 +12,14 @@ import './style.scss'
 
 interface WorkoutCardProps extends CardProps {
   workout: IWorkout,
+  showSalary?: boolean,
   showChevron?: boolean
 }
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({
   workout,
   showChevron=true,
+  showSalary=false,
   ...restProps
 }) => {
   const router = useRouteNavigator();
@@ -27,11 +29,18 @@ export const WorkoutCard: React.FC<WorkoutCardProps> = ({
       <Tappable onClick={() => router.push('/workout/' + workout.id)} className={'WorkoutCard__Tappable'}>
         <div className={'WorkoutCard__Content'}>
           <div className={'WorkoutCard--header'}>
-            {workout.client.first_name} {workout.client.last_name}
+            {workout.client.last_name} {workout.client.first_name} {workout.client.surname}
           </div>
           <div className={'WorkoutCard--description'}>
             Тренер: {workout.trainer.first_name} {workout.trainer.last_name}<br/>
             {workout.workout_type.title} — {workout.workout_type.price}₽
+            {showSalary && workout.status === 'done' ?
+              <>
+                <br/>Получено: {workout.workout_type.price / 2}₽
+              </>
+              :
+              null
+            }
           </div>
           <div className={'WorkoutCard--bottom'}>
             <div className={'WorkoutCard--date'}>

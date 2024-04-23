@@ -113,7 +113,7 @@ export const TrainerPanel: React.FC<PanelProps> = ({
               <CardGrid size={'l'}>
                 {
                   workouts.map(item => (
-                    <WorkoutCard workout={item} key={item.id} showChevron={false}/>
+                    <WorkoutCard workout={item} key={item.id} showChevron={false} showSalary={userType === 'trainer'}/>
                   ))
                 }
               </CardGrid>
